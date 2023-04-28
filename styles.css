@@ -1,0 +1,70 @@
+body {
+  background: #202124;
+  color: #f0f0f0;
+  font-family: Quicksand;
+  font-size: 50pt;
+}
+
+h1{
+  font-size: 80pt;
+  margin: 20px;
+}
+
+.bigh1{
+  font-size: 80pt;
+  margin: 20px;
+  width: 500%;
+  text-align: center;
+}
+
+.bigh1-uncentred{
+  font-size: 80pt;
+  margin: 20px;
+  width: 200%;
+  text-align: center;
+  margin-left: -50%;
+}
+
+.centred{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+canvas{
+  width: 150%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 30px;
+}
+#raymarch-visualize{width: 230%;}
+
+pre{
+  font-size: 3vh !important;
+}
+
+/* Progress Bar and Indicator Styling */
+.impress-progressbar {
+  position: absolute;
+  right: 0;
+  bottom: 1px;
+  left: 0;
+  border-radius: 7px;
+  border: 2px solid rgba(121, 121, 121, 0.363);
+}
+.impress-progressbar DIV {
+  width: 0;
+  height: 2px;
+  border-radius: 5px;
+  background: rgb(255, 255, 255);
+  transition: width 1s linear;
+}
+.impress-progress {
+  position: absolute;
+  left: 10px;
+  bottom: 10px;
+  text-align: left;
+  opacity: 0.3;
+  font-size: 20pt;
+}

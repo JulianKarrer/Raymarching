@@ -5,8 +5,8 @@ precision mediump float;
 
     //CONFIG
 //raymarching
-#define MAX_RAYMARCH_STEPS 32
-#define SURFACE_DIST 0.005
+#define MAX_RAYMARCH_STEPS 20
+#define SURFACE_DIST 0.004
 //mandelbulb
 #define POWER 3.
 #define MANDELBULB_MAX_ITERATIONS 32
@@ -90,6 +90,8 @@ vec3 colorize(vec2 res){
     float currentPow =  currentPow();
     return mix(vec3(0.), hsv2rgb(vec3(c,.4, b*1.5)), res.y * (currentPow/(POWER+3.)  ));
 }
+
+
 
 
         //MAIN FUNCTION

@@ -4,38 +4,53 @@
     <title>Raymarching</title>
     <link rel="stylesheet" href="styles.css" />
     <link rel="stylesheet" href="prism.css" />
+    <script src="plotly-2.20.0.min.js" charset="utf-8"></script>
   </head>
   <body class="impress-not-supported" oncontextmenu="return false;">
     <script src="glslcanvas.js"></script>
     <script src="prism.js"></script>
     <div id="impress">
-      <div id="title" class="step">
+
+      <div id="title" class="step centred"  data-x="0" data-y="0">
         <h1>Raymarching</h1>
       </div>
 
-      <div id="gliederung" class="step" data-x="1000" data-y="1500" data-z="-500" data-rotate-y="90">
+      <div id="representations" class="step centred" data-x="6000" data-y="0">
+        <h1 class="bigh1">Szenenrepräsentationen</h1>
+        <img src="representations-alpha.png" width="1400px"/>
+      </div>
+
+
+      <div id="mandelbulb" class="step centred" data-x="2000" data-y="0">
+        <h1>Motivation</h1>
+        <canvas class="glslCanvas" data-fragment-url="mandelbulb.frag" width="600" height="500"></canvas>
+      </div>
+
+
+      <div id="gliederung" class="step" data-x="1000" data-y="1000">
         <div style="width: 1000px">
           <h1>Gliederung</h1>
-          <li>Motivation</li>
           <li>Signed Distance Functions</li>
           <li>Raymarching</li>
           <li>Constructive Solid Geometry</li>
-          <li>Fraktale</li>
-          <li>Fazit</li>
+          <li>Transformationen und Noise</li>
         </div>
       </div>
 
-      <div id="mandelbulb" class="step centred" 
-      data-x="-1000" data-y="3500" data-z="500"
-      data-rotate-y="90"
-      >
-        <h1>Mandelbulb</h1>
-        <canvas class="glslCanvas" data-fragment-url="shader.frag" width="600" height="500"></canvas>
+      <div id="setting-visualizer" class="step centred" data-x="8000" data-y="1000">
+        <h1 class="bigh1">Setting</h1>
+        <canvas id="setting-visualize" class="algovis" width="1080" height="720"></canvas>
       </div>
 
-      <div id ="sdfbasics" class="step"
-        data-x="1000" data-y="5500" data-z="-500" data-rotate-y="90">
-        <h1 class="bigh1-uncentred">Signed Distance Functions</h1>
+      <div id="rays" class="step centred" data-x="8000" data-y="1000">
+        <h1 class="bigh1">Strahlen</h1>
+        <img src="/ray.svg" style="filter: invert(); width: 800px; margin: 200px;"/>
+        <span><b>r</b>(t)=<b>o</b>+<b>d</b>t,  t > 0</span>
+      </div>
+
+      <div id="sdfcircle" class="step" data-x="3000" data-y="1000">
+        <h1 class="bigh1-uncentred">Signed Distance Function: Kugel</h1>
+        <div class="row">
 <pre><code class="language-glsl">vec2 centre = vec2(0.0, 0.0);
 float radius = 10.0;
 
@@ -43,8 +58,15 @@ float D_sphere(vec2 p){
   return length(p - centre) - radius;
 }
 </code></pre>
+<canvas id="circle-sdf-canvas" width="1080" height="720"></canvas>
+        </div>
+      </div>
+      
+      <!-- <div id ="sdfbox" class="step" data-x="5000" data-y="1000">
+      <h1 class="bigh1-uncentred">Signed Distance Function: Box</h1>
+        <div class="row">
 <pre><code class="language-glsl">vec2 centre = vec2(0.0, 0.0);
-vec2 width = vec2(10.0, 20.0);
+vec2 width = vec2(20.0, 10.0);
 
 float D_box(vec2 p){
   // translate p -> box is around the origin
@@ -59,22 +81,158 @@ float D_box(vec2 p){
   return if_outside_box + min(0.0, if_inside_box);
 }
 </code></pre>
+<canvas id="box-sdf-canvas" width="1080" height="720"></canvas>
+        </div>
+      </div> -->
+
+      <div id="zoo" class="step centred" data-x="6000" data-y="0">
+        <h1 class="bigh1">Andere Formen</h1>
+        <img src="/sdf-formen-Xds3zN.png  " width="1400px"/>
+        <span class="reference">[IQ1]</span>
       </div>
 
-      <div id="sdf-visualizer" class="step centred" 
-      data-x="-1000" data-y="7500" data-z="-500" data-rotate-y="90">
-        <h1 class="bigh1">Signed Distance Functions</h1>
-        <canvas id="raymarch-visualize" width="1080" height="720"></canvas>
+      <div id="sdf-visualizer" class="step centred" data-x="6000" data-y="0">
+        <h1 class="bigh1">Signed Distance Functions: Vereinigung</h1>
+        <canvas id="sdf-union-canvas" width="1080" height="720"></canvas>
       </div>
-      <div id="sdfray-visualizer" class="step centred" 
-      data-x="-1000" data-y="7500" data-z="-500" data-rotate-y="90">
+
+      <div id="sdfray-visualizer" class="step centred" data-x="8000" data-y="1000">
+        <h1 class="bigh1">Schnittpunkte finden</h1>
+        <canvas id="raymarch-visualize" class="algovis" width="1080" height="720"></canvas>
+      </div>
+
+      <!-- <div id="raymarch-algo" class="step centred">
+        <h1>Raymarching Algorithmus</h1>
+<pre class="pseudocode">
+Distanz <- 0
+while (steps < maximum){
+  if sdf(position)
+}
+</pre>
+      </div> -->
+
+      <div id="sdfray-visualizer-fluent" class="step centred" data-x="10000" data-y="0">
+        <h1 class="bigh1">Raymarching</h1>
+        <canvas id="raymarch-visualize-fluent" class="algovis"  width="1080" height="720"></canvas>
+      </div>
+
+      
+      <div id="softmax" class="step centred" data-x="12000" data-y="1000">
+        <h1 class="bigh1">Constructive Solid Geometry</h1>
+        <div class="row">
+          <div class="funcdiv">
+            <div  id="func-plot" style="width:100%;max-width:700px"></div>
+          </div>
+          <canvas id="softmaxcanvas" class="glslCanvas" data-fragment-url="csg.frag" width="600" height="600"></canvas>
+        </div>
+        <div class="row">
+          <div class="centred">
+            <select name="Operation" id="csg-op">
+              <option value="union">Vereinigung</option>
+              <option value="intersect">Schnitt</option>
+            </select>
+          </div>
+          <div class="centred">
+            <span id="smoothness_span" class="smallspan"></span>
+            <input type="range" min="1" max="1000" value="1" class="slider" id="softmaxslider">
+          </div>
+          <div class="centred">
+            <span id="boxness_span" class="smallspan"></span>
+            <input type="range" min="0" max="1000" value="1000" class="slider" id="boxnessslider">
+          </div>
+        </div>
+      </div>
+
+      <div id="why-smoothmin" class="step centred" data-x="6000" data-y="0">
+        <h1 class="bigh1">Warum Glättungen?</h1>
+        <div class="row">
+          <img src="/hoody-rough.jpg" width="400px"/>
+          <img src="/hoody-smooth.jpg" width="400px"/>
+        </div>
+        <img src="/hoody.png" width="800px"/>
+        <span class="reference">[IQ2]</span>
+      </div>
+
+      <div id="instancing" class="step centred" data-x="13000" data-y="0">
+        <h1>Transformations</h1>
+        <div class="row">
+          <div class="centred">
+            <div style="width: 500px; height:750px; margin: 10px;">
+
+              <label for="inst">Instanzierung</label>
+              <input type="range" id="inst" name="inst" min="0" max="3" value="0">
+              <pre>s = vec3(1) // spacing
+pos = pos-s*clamp(round(pos/s),-N,N);</pre>
+
+              <label for="rotatex">um X rotieren</label>
+              <input type="checkbox" class="larger" id="rotatex" name="rotatex" value="rotatex">
+              <pre>vec3 pos = mat3 RotateX(time) * pos</pre>
+              
+              <label for="rotatey">um Y rotieren</label>
+              <input type="checkbox" class="larger" id="rotatey" name="rotatey" value="rotatey">
+              <pre>vec3 pos = mat3 RotateY(time) * pos</pre>
+              
+              <label for="noise">Noise</label>
+              <input type="range" id="noise" name="noise" min="0" max="40" value="0">
+              <pre>sdf -= noise(vec3 pos, float time)</pre>
+
+            </div>
+          </div>
+          <div class="centred">
+            <canvas class="glslCanvas bigcanvas" data-fragment-url="instancing.frag" width="1000" height="750"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <div id="procedural" class="step centred">
+        <h1 class="bigh1">Prozedurale Geometrie</h1>
+        <div class="row">
+          <img src="/forest.png" width="900px"/>
+          <img src="/mountains.png" width="900px"/>
+        </div>
+        <span class="reference">[IQ3]</span>
+      </div>
+
+      <div id="fazit" class="step centred">
+        <h1 class="bigh1">Vor- und Nachteile</h1>
+        <div class="row">
+          <div style="width: 800px; font-size: 35pt;">
+            <li class="pro">robust und volumetrisch</li>
+            <li class="pro">keine Triangulierung</li>
+            <li class="pro">kostenlose Instanzierung</li>
+            <li class="pro">nützliche Transformationen</li>
+            <li class="pro">Fraktale und prozedurale Geometrie</li>
+            <li class="pro">erlernbar (?)</li>
+          </div>
+          <div style="width: 800px; font-size: 35pt;">
+            <li class="con">ungewöhnliche Szenendarstellung</li>
+            <li class="con">schwer zu konstruieren</li>
+            <li class="con">schwer zu optimieren</li>
+          </div>
+        </div>
+        
+      </div>
+
+      <div id="end" class="step centred">
+        <h1 class="bigh1">Vielen Dank für Ihre Aufmerksamkeit!</h1>
+        <canvas class="glslCanvas" data-fragment-url="mandelbulb.frag" width="600" height="500" style="width: 600px;"></canvas>
+        <span style="font-size: 20pt;">Bildquellen: [IQ] Ingio Quilez (Blog) iquilezles.org</span>
       </div>
 
     </div>
-
     <img id="eyecon" src="eyecon.png" style="display: none;"/>
-    <div class="impress-progressbar"><div></div></div>
+    <script>
+      let i = 0;
+      for (const elem of document.getElementsByClassName("step")){
+        if (elem){
+          elem.setAttribute("data-x", i*2000);
+          elem.setAttribute("data-y", i*100*(i%2==0?-1:1))
+          i++;
+        }
+      }
+    </script>
     <div class="impress-progress"></div>
+    <!-- <div class="impress-progressbar"></div> -->
     <script src="impress.js"></script>
     <script src="raymarch-visualize.js"></script>
     <script>impress().init()</script>

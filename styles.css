@@ -1,3 +1,5 @@
+/* general styling */
+
 body {
   background: #202124;
   color: #f0f0f0;
@@ -6,23 +8,23 @@ body {
 }
 
 h1{
-  font-size: 80pt;
+  font-size: 60pt;
   margin: 20px;
 }
 
 .bigh1{
-  font-size: 80pt;
+  font-size: 70pt;
   margin: 20px;
-  width: 500%;
+  width: 350%;
   text-align: center;
 }
 
 .bigh1-uncentred{
-  font-size: 80pt;
+  font-size: 70pt;
   margin: 20px;
-  width: 200%;
+  width: 300%;
   text-align: center;
-  margin-left: -50%;
+  margin-left: -100%;
 }
 
 .centred{
@@ -32,16 +34,88 @@ h1{
   align-items: center;
 }
 
+.row{
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
 canvas{
+  margin: 20px;
   width: 150%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.1);
   border-radius: 30px;
 }
-#raymarch-visualize{width: 230%;}
+
+#sdf-union-canvas{
+  width: 200%;
+}
+#setting-visualize{width: 300%;}
+
+/* raymarching explanation styling */
+
+.algovis{width: 200%;}
+#circle-sdf-canvas{width: 800px;}
+#box-sdf-canvas{width: 800px;}
+#softmaxcanvas{width: 600px !important;}
+
+/* csg styling */
+select{
+  color: #f0f0f0;
+  font-family: Quicksand;
+  font-size: 20pt;
+  background: #202124;
+  border:none;
+}
+.modebar-container{
+  display: none !important;
+}
+.slider {
+  width: 100%;
+  background: #d3d3d3;
+  outline: none;
+  opacity: 0.7;
+  -webkit-transition: .2s;
+  transition: opacity .2s;
+}
+.funcdiv{
+  background: white; 
+  width:600px; 
+  height: 600px;
+  border-radius: 30px;
+  overflow: hidden;
+}
+.smallspan{
+  font-size: 25pt;
+  font-family: monospace;
+}
+
+/* instancing */
+
+.bigcanvas{
+  width: 1000px;
+}
+input.larger{
+  width: 50px;
+  height: 50px;
+}
+
+/* code styling */
 
 pre{
   font-size: 3vh !important;
+}
+
+/* image source styling */
+.reference{
+  font-size: 20pt;
+  position: absolute;
+  bottom: -25pt;
+  right: 0px;
+  mix-blend-mode: exclusion;
 }
 
 /* Progress Bar and Indicator Styling */
@@ -67,4 +141,28 @@ pre{
   text-align: left;
   opacity: 0.3;
   font-size: 20pt;
+}
+
+/* pro und con liste */
+
+.pro{
+  padding-left: 1em;
+  text-indent: -1em;
+  list-style: none;
+  margin-left: 0;
+}
+.pro::before{
+  content: "+";
+  margin-right: 1ch;
+}
+
+.con{
+  padding-left: 1em;
+  text-indent: -1em;
+  list-style: none;
+  margin-left: 0;
+}
+.con::before{
+  content: "-";
+  margin-right: 1ch;
 }
